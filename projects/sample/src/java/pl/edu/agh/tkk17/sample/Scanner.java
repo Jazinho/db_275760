@@ -11,6 +11,7 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
     private int position;
     private char character;
     private boolean end;
+    private String num;
 
     public Scanner(InputStream input)
     {
@@ -18,6 +19,7 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
         this.position = -1;
         this.end = false;
         this.readChar();
+        this.num = "";
     }
 
     private void readChar()
@@ -57,8 +59,15 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
             this.readChar();
         } else if (character >= '0' && character <= '9') {
             String value = String.valueOf(character);
-            token = this.makeToken(TokenType.NUM, value);
+            num += value;
+
             this.readChar();
+            if(Character.isDigit(this.character)) {
+                token = this.next();
+            }else{
+                token = makeToken(TokenType.NUM, num);
+                num = "";
+            }
         } else if (character == '\n' || character == '\u0000') {
             token = this.makeToken(TokenType.END);
             this.readChar();
