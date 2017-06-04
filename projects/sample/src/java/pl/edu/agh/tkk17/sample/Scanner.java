@@ -62,6 +62,9 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
         } else if (character == '\n' || character == '\u0000') {
             token = this.makeToken(TokenType.END);
             this.readChar();
+        } else if (character == ' ') {
+            this.readChar();
+            token = this.next();
         } else {
             String location = this.locate(this.position);
             throw new UnexpectedCharacterException(character, location);
