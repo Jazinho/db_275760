@@ -49,7 +49,7 @@ public class RpnEvaluatorVisitor implements NodeVisitor
         node.getLeft().accept(this);
         node.getRight().accept(this);
         Float a = this.stack.pop();
-        if(a == 0) throw new WrongArgumentException("Division by zero is not allowed!");
+        if(a == 0) throw new WrongArgumentException("Division by 0.");
         Float b = this.stack.pop();
         Float c = b / a;
         this.stack.push(c);

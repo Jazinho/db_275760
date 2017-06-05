@@ -44,9 +44,23 @@ public class Parser
         return new NodeNumber(value);
     }
 
+    private Node parseFactor(){
+        if(this.check(TokenType.LBR)){
+            this.forward();
+            Node expr = this.parseExpression();
+            if(!this.check(TokenType.RBR)) {
+                throw new UnexpectedTokenException(this.ctoken);
+            }else{
+                this.forward();
+                return expr;
+            }
+        }
+        return this.parseNumber();
+    }
+
     private Node parseTerm()
     {
-        Node left = this.parseNumber();
+        Node left = this.parseFactor();
         if (this.check(TokenType.MUL)) {
             this.forward();
             Node right = this.parseTerm();
