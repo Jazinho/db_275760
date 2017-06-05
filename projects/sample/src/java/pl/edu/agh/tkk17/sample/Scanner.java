@@ -57,12 +57,18 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
         } else if (character == '*') {
             token = this.makeToken(TokenType.MUL);
             this.readChar();
-        } else if (character >= '0' && character <= '9') {
+        } else if (character == '-') {
+            token = this.makeToken(TokenType.SUB);
+            this.readChar();
+        } else if (character == '/') {
+            token = this.makeToken(TokenType.DIV);
+            this.readChar();
+        } else if ((character >= '0' && character <= '9') || character =='.') {
             String value = String.valueOf(character);
             num += value;
 
             this.readChar();
-            if(Character.isDigit(this.character)) {
+            if(Character.isDigit(this.character) || character == '.') {
                 token = this.next();
             }else{
                 token = makeToken(TokenType.NUM, num);
