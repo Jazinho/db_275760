@@ -74,7 +74,7 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
             num += value;
 
             this.readChar();
-            if(Character.isDigit(this.character) || character == '.') {
+            if(Character.isDigit(this.character) || this.character == '.') {
                 token = this.next();
             }else{
                 token = makeToken(TokenType.NUM, num);
